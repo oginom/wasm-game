@@ -1,5 +1,4 @@
 import { Universe, Cell } from "wasm-game";
-import { get_memory } from "wasm-game/wasm_game_bg";
 
 const CELL_SIZE = 5;
 const GRID_COLOR = "#CCCCCC";
@@ -45,8 +44,7 @@ function drawGrid() {
 }
 
 function drawCells() {
-  const cellsPtr = universe.cells();
-  const cells = new Uint8Array(get_memory().buffer, cellsPtr, width * height);
+  const cells = universe.cells();
 
   ctx.beginPath();
 

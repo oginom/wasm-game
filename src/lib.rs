@@ -1,5 +1,6 @@
 mod utils;
 
+use js_sys::Uint8Array;
 use std::fmt;
 use wasm_bindgen::prelude::*;
 
@@ -76,8 +77,13 @@ impl Universe {
         self.height
     }
 
-    pub fn cells(&self) -> *const Cell {
-        self.cells.as_ptr()
+    pub fn cells(&self) -> Uint8Array {
+        unsafe {
+            Uint8Array::view(std::slice::from_raw_parts(
+                self.cells.as_ptr() as *const u8,
+                self.cells.len(),
+            ))
+        }
     }
 
     pub fn tick(&mut self) {
