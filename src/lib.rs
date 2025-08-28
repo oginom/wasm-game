@@ -55,16 +55,16 @@ impl Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Self {
-        let width = 64;
-        let height = 64;
+        let width = 128;
+        let height = 128;
 
         let cells = (0..width * height)
-            .map(|i| if i % 2 == 0 || i % 7 == 0 { Cell::Alive } else { Cell::Dead })
+            .map(|_| if js_sys::Math::random() < 0.5 { Cell::Alive } else { Cell::Dead })
             .collect();
 
         Self {
-            width,
-            height,
+            width: width as u32,
+            height: height as u32,
             cells,
         }
     }
